@@ -1,0 +1,16 @@
+# Build output
+bin/
+obj/
+artifacts/
+publish/
+*.user
+*.suo
+.vs/
+
+# Local tools and scratch
+.tools/
+*.log
+*.trx
+
+# Documentation previews (full-size PNGs are committed)
+docs/screenshots/*-small.png

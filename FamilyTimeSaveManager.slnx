@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/FamilyTimeSaveManager.App/FamilyTimeSaveManager.App.csproj" />
+    <Project Path="src/FamilyTimeSaveManager.Core/FamilyTimeSaveManager.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/FamilyTimeSaveManager.Core.Tests/FamilyTimeSaveManager.Core.Tests.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore
+        run: dotnet restore tests/FamilyTimeSaveManager.Core.Tests/FamilyTimeSaveManager.Core.Tests.csproj
+
+      - name: Build
+        run: dotnet build tests/FamilyTimeSaveManager.Core.Tests/FamilyTimeSaveManager.Core.Tests.csproj -c Release --no-restore
+
+      - name: Test
+        run: dotnet test tests/FamilyTimeSaveManager.Core.Tests/FamilyTimeSaveManager.Core.Tests.csproj -c Release --no-build --logger "console;verbosity=normal"
+
+      - name: Publish application
+        run: dotnet publish src/FamilyTimeSaveManager.App/FamilyTimeSaveManager.App.csproj -c Release -r win-x64 --self-contained true -o artifacts/publish
+
+      - name: Upload application
+        uses: actions/upload-artifact@v4
+        with:
+          name: FamilyTimeSaveManager-win-x64
+          path: artifacts/publish/FamilyTimeSaveManager.exe
+          if-no-files-found: error
